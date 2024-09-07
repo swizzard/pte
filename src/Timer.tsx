@@ -26,7 +26,9 @@ export default function Timer({ duration }: TimerProps) {
       <button disabled={started} onClick={() => setStarted(true)}>
         Start
       </button>
-      <audio id="audioElement" src={alarmSound} autoPlay={false} />
+      <audio id="audioElement" autoPlay={false}>
+        <source src={alarmSound} type="audio/wav" />
+      </audio>
       {started && (
         <p>Timer is running for {Math.floor(duration / 1000)} seconds</p>
       )}
