@@ -1,4 +1,4 @@
-import { type Exercises } from "./ExTracker";
+import { type Exercises } from "./reducer";
 
 const exercises: Exercises = [
   { label: "ITB Right", reps: 3 },
