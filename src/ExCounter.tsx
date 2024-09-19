@@ -1,47 +1,34 @@
-import { useState, useEffect } from "react";
-
 export interface ExCounterProps {
   label: string;
-  reps: number;
+  currentReps: number;
+  totalReps: number;
+  incrFn: () => void;
+  resetFn: () => void;
 }
 
-export default function ExCounter({ label, reps }: ExCounterProps) {
-  const [nDone, setNDone] = useState(0);
-  const [done, setDone] = useState(false);
-
-  useEffect(() => {
-    if (nDone === reps) {
-      setDone(true);
-    }
-  }, [nDone, reps]);
-
+export default function ExCounter({
+  label,
+  currentReps,
+  totalReps,
+  incrFn,
+  resetFn,
+}: ExCounterProps) {
   return (
     <div
-      className={`ex ${nDone > 0 ? "ex-started" : ""} ${done ? "ex-done" : ""}`}
+      className={`ex ${currentReps > 0 ? "ex-started" : ""} ${currentReps >= totalReps ? "ex-done" : ""}`}
     >
       <h2>{label}</h2>
       <div>
-        {Array(reps)
+        {Array(totalReps)
           .fill(0)
           .map((_, i) => (
-            <button
-              key={i}
-              disabled={nDone > i}
-              onClick={() => setNDone(nDone + 1)}
-            >
+            <button key={i} disabled={currentReps > i} onClick={() => incrFn()}>
               ✔️
             </button>
           ))}
       </div>
       <div>
-        <button
-          onClick={() => {
-            setNDone(0);
-            setDone(false);
-          }}
-        >
-          Reset
-        </button>
+        <button onClick={() => resetFn()}>Reset</button>
       </div>
     </div>
   );
